@@ -32,7 +32,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSelectPrompt }) 
   return (
     <div className="py-12 sm:py-16 px-4 flex flex-col items-center text-center max-w-2xl mx-auto">
       {/* Icon */}
-      <div className="w-12 h-12 rounded-2xl bg-accent-soft border border-accent/20 flex items-center justify-center text-accent mb-5 shadow-subtle">
+      <div className="w-12 h-12 rounded-2xl bg-peach-soft border border-border flex items-center justify-center text-coral mb-5 shadow-subtle">
         <Sparkles className="w-6 h-6 fill-current" />
       </div>
 
@@ -50,14 +50,15 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSelectPrompt }) 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full text-left">
         {starterPrompts.map((p, i) => {
           const Icon = p.icon;
+          const isMagenta = i % 2 === 1;
           return (
             <button
               key={i}
               onClick={() => onSelectPrompt(p.prompt)}
-              className="p-4 rounded-xl border border-border bg-white hover:border-accent/50 hover:bg-background-secondary/50 hover:shadow-subtle transition-all duration-150 flex flex-col gap-1.5 text-left group active:scale-[0.99]"
+              className="p-4 rounded-xl border border-border bg-white hover:border-coral/50 hover:bg-background-secondary/50 hover:shadow-subtle transition-all duration-150 flex flex-col gap-1.5 text-left group active:scale-[0.99]"
             >
-              <div className="flex items-center gap-2 text-xs font-semibold text-text-primary group-hover:text-accent transition-colors">
-                <Icon className="w-3.5 h-3.5 text-accent" />
+              <div className="flex items-center gap-2 text-xs font-semibold text-text-primary group-hover:text-coral transition-colors">
+                <Icon className={`w-3.5 h-3.5 ${isMagenta ? 'text-magenta' : 'text-coral'}`} />
                 <span>{p.title}</span>
               </div>
               <span className="text-[11px] text-text-secondary leading-relaxed line-clamp-2">

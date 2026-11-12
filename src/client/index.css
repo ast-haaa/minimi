@@ -5,12 +5,12 @@
 @layer base {
   body {
     background-color: #FFFFFF;
-    color: #292432;
+    color: #292929;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-/* Custom scrollbar for clean lavender/purple neutral aesthetic */
+/* Custom scrollbar for clean coral/neutral aesthetic */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -21,54 +21,54 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #EAE5F0;
+  background: #EEE8E6;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4CADF;
+  background: #D9D0CE;
 }
 
 /* Markdown prose styling overrides */
 .prose {
-  color: #292432;
+  color: #292929;
   max-width: none;
 }
 
 .prose p {
   line-height: 1.68;
   margin-bottom: 0.85em;
-  color: #292432;
+  color: #292929;
 }
 
 .prose a {
-  color: #8051C7;
+  color: #F0644F;
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color 0.15s ease;
 }
 
 .prose a:hover {
-  color: #693BAF;
+  color: #E65342;
 }
 
 .prose strong {
-  color: #292432;
+  color: #292929;
   font-weight: 600;
 }
 
 .prose code {
-  color: #292432;
-  background-color: #F8F6FB;
+  color: #292929;
+  background-color: #FFFCFB;
   padding: 0.15em 0.35em;
   border-radius: 4px;
   font-size: 0.88em;
   font-family: 'JetBrains Mono', monospace;
-  border: 1px solid #EAE5F0;
+  border: 1px solid #EEE8E6;
 }
 
 .prose pre {
-  background-color: #292432;
+  background-color: #292929;
   color: #FFFFFF;
   border-radius: 8px;
   padding: 1rem;
@@ -80,25 +80,37 @@
   border-collapse: collapse;
   font-size: 0.9em;
   margin: 1.25em 0;
-  border: 1px solid #EAE5F0;
+  border: 1px solid #EEE8E6;
   border-radius: 6px;
   overflow: hidden;
 }
 
 .prose th {
-  background-color: #F8F6FB;
-  color: #292432;
+  background-color: #FFF2ED;
+  color: #292929;
   font-weight: 600;
   text-align: left;
   padding: 0.65rem 0.85rem;
-  border-bottom: 1px solid #EAE5F0;
+  border-bottom: 1px solid #EEE8E6;
 }
 
 .prose td {
   padding: 0.65rem 0.85rem;
-  border-bottom: 1px solid #EAE5F0;
+  border-bottom: 1px solid #EEE8E6;
 }
 
 .prose tr:last-child td {
   border-bottom: none;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

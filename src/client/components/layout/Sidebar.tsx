@@ -128,16 +128,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className="p-4 border-b border-border flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-7 h-7 rounded-lg bg-accent-soft border border-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-colors">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="w-7 h-7 rounded-lg bg-coral text-white flex items-center justify-center font-bold text-xs shadow-sm group-hover:bg-coral-hover transition-colors">
+              M
             </div>
             <div className="flex flex-col">
-              <span className="font-semibold text-xs tracking-tight text-text-primary">
-                MINIMI
-              </span>
-              <span className="text-[9px] text-text-secondary uppercase tracking-widest font-medium">
-                Research Agent
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="font-bold text-xs tracking-tight text-text-primary">
+                  MINIMI
+                </span>
+                <span className="text-[8px] font-semibold text-coral uppercase tracking-widest px-1 py-0.2 rounded bg-peach-soft border border-border">
+                  AGENT
+                </span>
+              </div>
             </div>
           </Link>
           <button
@@ -207,12 +209,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     onClick={() => onSelect(item.id)}
                     className={`group relative flex items-center justify-between px-2.5 py-2 rounded-lg cursor-pointer text-xs transition-colors ${
                       isActive
-                        ? 'bg-white border border-border text-text-primary font-medium shadow-subtle'
-                        : 'text-text-secondary hover:bg-white/70 hover:text-text-primary'
+                        ? 'bg-white border-l-[3px] border-l-coral border-y border-r border-border text-text-primary font-medium shadow-subtle'
+                        : 'text-text-secondary hover:bg-white/70 hover:text-text-primary border border-transparent'
                     }`}
                   >
                     <div className="flex items-center gap-2 min-w-0 pr-6">
-                      <MessageSquare className="w-3.5 h-3.5 text-text-secondary flex-shrink-0" />
+                      <MessageSquare className={`w-3.5 h-3.5 flex-shrink-0 ${isActive ? 'text-coral' : 'text-text-secondary'}`} />
                       <span className="truncate">{item.title}</span>
                     </div>
 

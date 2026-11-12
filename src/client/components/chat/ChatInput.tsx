@@ -54,7 +54,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
     <div className="w-full max-w-3xl mx-auto px-4 pb-4 pt-2">
       <form
         onSubmit={handleSubmit}
-        className="relative flex items-end gap-2 p-2 rounded-2xl border border-border bg-white shadow-card focus-within:border-accent focus-within:ring-2 focus-within:ring-accent/15 transition-all duration-150"
+        className="relative flex items-end gap-2 p-2 rounded-2xl border border-border bg-white shadow-card focus-within:border-coral focus-within:ring-2 focus-within:ring-coral/15 transition-all duration-150"
       >
         <textarea
           ref={textareaRef}
@@ -71,7 +71,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           <button
             type="button"
             onClick={onStop}
-            className="flex-shrink-0 w-8 h-8 rounded-xl bg-accent hover:bg-accent-hover text-white flex items-center justify-center transition-colors shadow-subtle"
+            className="flex-shrink-0 w-8 h-8 rounded-xl bg-coral hover:bg-coral-hover text-white flex items-center justify-center transition-colors shadow-subtle"
             title="Stop generation"
           >
             <Square className="w-3.5 h-3.5 fill-current" />
@@ -82,7 +82,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             disabled={!input.trim() || disabled}
             className={`flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-150 shadow-subtle ${
               input.trim() && !disabled
-                ? 'bg-accent hover:bg-accent-hover text-white active:scale-95'
+                ? 'bg-coral hover:bg-coral-hover text-white active:scale-95'
                 : 'bg-background-secondary text-text-secondary/40 cursor-not-allowed'
             }`}
             title="Send message (Enter)"

@@ -16,19 +16,19 @@ export const SourceCard: React.FC<SourceCardProps> = ({ source, index }) => {
       href={source.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col p-3 rounded-xl border border-border bg-white hover:border-accent hover:shadow-subtle transition-all duration-150 text-left"
+      className="group flex flex-col p-3 rounded-xl border border-border bg-white hover:border-coral/60 hover:shadow-subtle transition-all duration-150 text-left"
     >
       <div className="flex items-center justify-between gap-2 mb-1.5">
         <div className="flex items-center gap-1.5 min-w-0">
-          <Globe className="w-3.5 h-3.5 text-accent flex-shrink-0" />
+          <Globe className="w-3.5 h-3.5 text-magenta flex-shrink-0" />
           <span className="text-[11px] font-medium text-text-secondary truncate">
             {domain}
           </span>
         </div>
-        <ExternalLink className="w-3 h-3 text-text-secondary group-hover:text-accent transition-colors flex-shrink-0" />
+        <ExternalLink className="w-3 h-3 text-text-secondary group-hover:text-coral transition-colors flex-shrink-0" />
       </div>
 
-      <p className="text-xs font-semibold text-text-primary line-clamp-2 leading-snug group-hover:text-accent transition-colors">
+      <p className="text-xs font-semibold text-text-primary line-clamp-2 leading-snug group-hover:text-coral transition-colors">
         {index !== undefined ? `${index + 1}. ` : ''}
         {source.title || domain}
       </p>

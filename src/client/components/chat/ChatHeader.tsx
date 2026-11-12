@@ -31,8 +31,8 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
 
       <div className="flex items-center gap-2">
         {/* Research Capability Pill */}
-        <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent-soft text-accent text-[11px] font-medium border border-accent/20">
-          <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+        <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-peach-soft text-coral text-[11px] font-medium border border-border">
+          <span className="w-1.5 h-1.5 rounded-full bg-coral animate-pulse" />
           <span>FTS5 Memory + Live Tavily</span>
         </div>
 

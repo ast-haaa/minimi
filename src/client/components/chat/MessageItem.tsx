@@ -46,7 +46,7 @@ export const MessageItem: React.FC<MessageItemProps> = ({
   return (
     <div className="flex gap-3.5 mb-8 group animate-in fade-in duration-150">
       {/* Assistant Avatar */}
-      <div className="w-8 h-8 rounded-xl bg-accent-soft border border-accent/20 text-accent flex items-center justify-center flex-shrink-0 mt-0.5 shadow-subtle">
+      <div className="w-8 h-8 rounded-xl bg-pink-soft border border-magenta/20 text-magenta flex items-center justify-center flex-shrink-0 mt-0.5 shadow-subtle">
         <Sparkles className="w-4 h-4 fill-current" />
       </div>
 
@@ -61,7 +61,7 @@ export const MessageItem: React.FC<MessageItemProps> = ({
 
             {/* Memory indicator badge */}
             {memoryRefs.length > 0 && (
-              <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-md bg-accent-soft text-accent font-medium border border-accent/20">
+              <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-md bg-peach-soft text-coral font-medium border border-border">
                 <span>🧠 {memoryRefs.length} memory match{memoryRefs.length > 1 ? 'es' : ''} retrieved</span>
               </span>
             )}
@@ -75,7 +75,7 @@ export const MessageItem: React.FC<MessageItemProps> = ({
               className="p-1.5 rounded-lg text-text-secondary hover:text-text-primary hover:bg-background-secondary transition-colors"
             >
               {copied ? (
-                <Check className="w-3.5 h-3.5 text-accent" />
+                <Check className="w-3.5 h-3.5 text-coral" />
               ) : (
                 <Copy className="w-3.5 h-3.5" />
               )}
@@ -100,7 +100,7 @@ export const MessageItem: React.FC<MessageItemProps> = ({
           </ReactMarkdown>
 
           {isStreaming && (
-            <span className="inline-block w-1.5 h-4 ml-1 bg-accent animate-pulse align-middle" />
+            <span className="inline-block w-1.5 h-4 ml-1 bg-coral animate-pulse align-middle" />
           )}
         </div>
 
@@ -109,9 +109,9 @@ export const MessageItem: React.FC<MessageItemProps> = ({
           <div className="mt-4 pt-3 border-t border-border">
             <button
               onClick={() => setShowSources(!showSources)}
-              className="flex items-center gap-1.5 text-xs font-medium text-text-secondary hover:text-accent transition-colors mb-2.5"
+              className="flex items-center gap-1.5 text-xs font-medium text-text-secondary hover:text-coral transition-colors mb-2.5"
             >
-              <LinkIcon className="w-3.5 h-3.5 text-accent" />
+              <LinkIcon className="w-3.5 h-3.5 text-coral" />
               <span>{sources.length} Verified Source{sources.length > 1 ? 's' : ''}</span>
               <span className="text-[10px] text-text-secondary/70">
                 ({showSources ? 'Hide' : 'Show'})

@@ -99,7 +99,7 @@ export const ChatPage: React.FC = () => {
           <div className="max-w-3xl mx-auto">
             {isLoading ? (
               <div className="py-20 flex flex-col items-center justify-center space-y-3 text-text-secondary text-xs">
-                <div className="w-6 h-6 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+                <div className="w-6 h-6 border-2 border-coral border-t-transparent rounded-full animate-spin" />
                 <span>Loading research session...</span>
               </div>
             ) : messages.length === 0 && !isStreaming ? (

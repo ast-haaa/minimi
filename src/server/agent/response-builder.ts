@@ -75,3 +75,4 @@ function getStatusLabel(type: TemporalComparison['changeType']): string {
       return 'Unverified';
   }
 }
+

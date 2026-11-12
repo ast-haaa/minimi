@@ -94,3 +94,4 @@ The SQLite database (`./data/minimi.db`) is initialized automatically on first s
 ## Architectural Documentation
 
 For an in-depth explanation of design decisions, memory retrieval mechanics, temporal comparison taxonomy, and trade-offs, please read [DESIGN.md](./DESIGN.md).
+

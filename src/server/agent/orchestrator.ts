@@ -150,7 +150,7 @@ export class AgentOrchestrator {
           messages.push(choice.message);
 
           for (const call of choice.message.tool_calls) {
-            if (call.function.name === 'web_search') {
+            if (call.type === 'function' && call.function.name === 'web_search') {
               logger.info('Executing web_search tool', { args: call.function.arguments });
               const execResult = await this.toolHandler.executeWebSearch(
                 call.id,

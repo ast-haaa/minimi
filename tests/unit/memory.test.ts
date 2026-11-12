@@ -126,3 +126,4 @@ describe('Conversation Memory & Retrieval Engine', () => {
     expect(result2.relevantFacts.some((f) => f.entityName === 'Salesforce')).toBe(true);
   });
 });
+

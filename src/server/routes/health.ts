@@ -35,3 +35,4 @@ healthRouter.get('/', (_req: Request, res: Response) => {
   const statusCode = status === 'ok' || status === 'degraded' ? 200 : 503;
   res.status(statusCode).json(body);
 });
+

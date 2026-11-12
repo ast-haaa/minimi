@@ -1,3 +1,4 @@
+import './env.js';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -46,12 +47,16 @@ try {
   process.exit(1);
 }
 
-// Check configuration
-const { valid, missing } = validateConfig();
+// Safely verify configuration without logging values
+const { valid, missing, present } = validateConfig();
 if (!valid) {
-  logger.warn(`Missing environment variables: ${missing.join(', ')}. Live AI chat will require these keys.`);
+  logger.warn(
+    `Missing required environment variables: ${missing.join(', ')}. Please configure .env in project root.`
+  );
 } else {
-  logger.info('Environment configuration validated');
+  logger.info(
+    `Environment configuration validated successfully (configured: ${present.join(', ')})`
+  );
 }
 
 // API Routes
@@ -73,3 +78,4 @@ app.listen(PORT, () => {
 });
 
 export default app;
+

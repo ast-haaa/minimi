@@ -118,3 +118,4 @@ The comparison engine distinguishes between:
 2. **Automated Background Verification (Cron)**: Enable scheduled monitors that automatically re-run `web_search` for shortlisted tools every week and send change notifications.
 3. **Interactive Visual Diffing**: Add side-by-side graphical timeline diffs showing product tiers evolving across consecutive conversations.
 4. **Multi-Currency Normalization**: Integrate ECB/open-exchange rates to accurately compare cross-currency pricing changes over time.
+

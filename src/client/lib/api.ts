@@ -46,6 +46,34 @@ export async function deleteConversation(id: string): Promise<void> {
   if (!res.ok) throw new Error('Failed to delete conversation');
 }
 
+export async function updateConversation(
+  id: string,
+  updates: { title?: string; isPinned?: boolean }
+): Promise<Conversation> {
+  const res = await fetch(`${BASE_URL}/conversations/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updates),
+  });
+  if (!res.ok) throw new Error('Failed to update conversation');
+  const data = await res.json();
+  return data.conversation;
+}
+
+export async function togglePinConversation(
+  id: string,
+  isPinned?: boolean
+): Promise<Conversation> {
+  const res = await fetch(`${BASE_URL}/conversations/${id}/pin`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(isPinned !== undefined ? { isPinned } : {}),
+  });
+  if (!res.ok) throw new Error('Failed to pin conversation');
+  const data = await res.json();
+  return data.conversation;
+}
+
 export interface StreamChatParams {
   conversationId?: string;
   message: string;

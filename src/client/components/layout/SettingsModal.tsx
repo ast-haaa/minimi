@@ -21,7 +21,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         <div className="flex items-center justify-between border-b border-border pb-3">
           <div className="flex items-center gap-2">
             <h3 className="text-sm font-semibold text-text-primary">
-              System & Research Status
+              Developer Diagnostics
             </h3>
           </div>
           <button

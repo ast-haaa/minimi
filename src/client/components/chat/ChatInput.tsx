@@ -92,9 +92,8 @@ export const ChatInput: React.FC<ChatInputProps> = ({
         )}
       </form>
 
-      <div className="flex justify-between items-center px-2 pt-2 text-[10px] text-text-secondary/80">
+      <div className="flex justify-center items-center px-2 pt-2 text-[10px] text-text-secondary/80">
         <span>Press Enter to send · Shift + Enter for new line</span>
-        <span className="font-mono">SQLite FTS5 + Live Search</span>
       </div>
     </div>
   );

@@ -6,6 +6,12 @@ export const conversationsRouter = Router();
 
 const createConversationSchema = z.object({
   title: z.string().trim().min(1).max(100).optional(),
+  isPinned: z.boolean().optional(),
+});
+
+const updateConversationSchema = z.object({
+  title: z.string().trim().min(1).max(100).optional(),
+  isPinned: z.boolean().optional(),
 });
 
 // GET /api/conversations - List conversations
@@ -53,6 +59,48 @@ conversationsRouter.get('/:id', (req: Request, res: Response) => {
     });
   } catch (err) {
     res.status(500).json({ error: 'Failed to retrieve conversation' });
+  }
+});
+
+// PATCH /api/conversations/:id - Update conversation (rename or pin/unpin)
+conversationsRouter.patch('/:id', (req: Request, res: Response) => {
+  try {
+    const id = req.params.id as string;
+    const parsed = updateConversationSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ error: 'Invalid input', issues: parsed.error.issues });
+    }
+    const conversation = repository.getConversation(id);
+    if (!conversation) {
+      return res.status(404).json({ error: 'Conversation not found' });
+    }
+    if (parsed.data.title !== undefined) {
+      repository.updateConversationTitle(id, parsed.data.title);
+    }
+    if (parsed.data.isPinned !== undefined) {
+      repository.updateConversationPin(id, parsed.data.isPinned);
+    }
+    const updated = repository.getConversation(id);
+    res.json({ conversation: updated });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update conversation' });
+  }
+});
+
+// POST /api/conversations/:id/pin - Toggle or set pin status
+conversationsRouter.post('/:id/pin', (req: Request, res: Response) => {
+  try {
+    const id = req.params.id as string;
+    const conversation = repository.getConversation(id);
+    if (!conversation) {
+      return res.status(404).json({ error: 'Conversation not found' });
+    }
+    const isPinned = req.body?.isPinned !== undefined ? Boolean(req.body.isPinned) : !conversation.isPinned;
+    repository.updateConversationPin(id, isPinned);
+    const updated = repository.getConversation(id);
+    res.json({ conversation: updated });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to toggle pin' });
   }
 });
 

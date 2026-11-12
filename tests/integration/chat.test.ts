@@ -88,5 +88,46 @@ describe('Chat Storage & Lifecycle Integration', () => {
     const fetchedMsg = repository.getMessage(msg.id);
     expect(fetchedMsg).toBeNull();
   });
+
+  it('persists pinned state and sorts pinned conversations first', () => {
+    const conv1 = repository.createConversation(undefined, 'Normal Conversation A');
+    const conv2 = repository.createConversation(undefined, 'Important Pinned Conversation');
+    const conv3 = repository.createConversation(undefined, 'Normal Conversation B');
+
+    // Default pin status is false
+    expect(conv1.isPinned).toBe(false);
+    expect(conv2.isPinned).toBe(false);
+
+    // Pin conv2
+    const pinSuccess = repository.updateConversationPin(conv2.id, true);
+    expect(pinSuccess).toBe(true);
+
+    const reloadedConv2 = repository.getConversation(conv2.id);
+    expect(reloadedConv2?.isPinned).toBe(true);
+
+    // listConversations should return pinned conversation first
+    const list = repository.listConversations();
+    const conv2Item = list.find((c) => c.id === conv2.id);
+    expect(conv2Item?.isPinned).toBe(true);
+
+    // The first item in the list must be pinned
+    expect(list[0].id).toBe(conv2.id);
+
+    // Unpin conv2
+    repository.updateConversationPin(conv2.id, false);
+    const unpinnedConv2 = repository.getConversation(conv2.id);
+    expect(unpinnedConv2?.isPinned).toBe(false);
+  });
+
+  it('renames conversation and persists title cleanly', () => {
+    const conv = repository.createConversation(undefined, 'Initial Title');
+    expect(conv.title).toBe('Initial Title');
+
+    const renameSuccess = repository.updateConversationTitle(conv.id, 'Renamed Research Session');
+    expect(renameSuccess).toBe(true);
+
+    const reloaded = repository.getConversation(conv.id);
+    expect(reloaded?.title).toBe('Renamed Research Session');
+  });
 });
 

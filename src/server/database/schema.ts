@@ -3,9 +3,12 @@ export const SCHEMA_SQL = `
 CREATE TABLE IF NOT EXISTS conversations (
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL DEFAULT 'New Conversation',
+  is_pinned INTEGER NOT NULL DEFAULT 0,
   created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
   updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
 );
+
+CREATE INDEX IF NOT EXISTS idx_conversations_is_pinned ON conversations(is_pinned);
 
 -- Messages within conversations
 CREATE TABLE IF NOT EXISTS messages (

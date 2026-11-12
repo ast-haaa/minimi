@@ -165,6 +165,32 @@ export function useChat(initialId?: string) {
     [currentConversationId, startNewConversation, loadConversations]
   );
 
+  // Pin/unpin conversation
+  const togglePin = useCallback(
+    async (id: string, isPinned?: boolean) => {
+      try {
+        await api.togglePinConversation(id, isPinned);
+        await loadConversations();
+      } catch (e: unknown) {
+        console.error('Failed to toggle pin', e);
+      }
+    },
+    [loadConversations]
+  );
+
+  // Rename conversation
+  const renameConversation = useCallback(
+    async (id: string, newTitle: string) => {
+      try {
+        await api.updateConversation(id, { title: newTitle.trim() });
+        await loadConversations();
+      } catch (e: unknown) {
+        console.error('Failed to rename conversation', e);
+      }
+    },
+    [loadConversations]
+  );
+
   // Retry last message
   const retryLastMessage = useCallback(() => {
     const lastUserMsg = [...messages].reverse().find((m) => m.role === 'user');
@@ -186,6 +212,8 @@ export function useChat(initialId?: string) {
     loadConversation,
     startNewConversation,
     deleteConversation,
+    togglePin,
+    renameConversation,
     stopStreaming,
     retryLastMessage,
   };

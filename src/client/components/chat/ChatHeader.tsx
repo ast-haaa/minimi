@@ -14,7 +14,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
   onNewChat,
 }) => {
   return (
-    <header className="h-14 border-b border-border px-4 sm:px-6 flex items-center justify-between bg-white/95 backdrop-blur-sm z-10 flex-shrink-0">
+    <header className="h-14 border-b border-border px-4 sm:px-6 flex items-center justify-between bg-white z-10 flex-shrink-0">
       <div className="flex items-center gap-3 min-w-0">
         <button
           onClick={onToggleSidebar}
@@ -24,33 +24,25 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({
           <Menu className="w-4 h-4" />
         </button>
 
-        <h1 className="font-semibold text-xs text-text-primary truncate max-w-sm sm:max-w-md">
-          {title || 'New Research Session'}
-        </h1>
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="w-5 h-5 rounded-md bg-coral text-white flex items-center justify-center font-bold text-[10px] shadow-xs flex-shrink-0">
+            M
+          </div>
+          <h1 className="font-semibold text-xs sm:text-sm text-text-primary truncate max-w-sm sm:max-w-md">
+            {title || 'New Research Session'}
+          </h1>
+        </div>
       </div>
 
       <div className="flex items-center gap-2">
-        {/* Research Capability Pill */}
-        <div className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-peach-soft text-coral text-[11px] font-medium border border-border">
-          <span className="w-1.5 h-1.5 rounded-full bg-coral animate-pulse" />
-          <span>FTS5 Memory + Live Tavily</span>
-        </div>
-
         <button
           onClick={onNewChat}
-          className="p-1.5 rounded-lg text-text-secondary hover:text-text-primary hover:bg-background-secondary transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-coral hover:bg-coral-hover text-white text-xs font-medium transition-colors shadow-xs active:scale-95"
           title="Start new research conversation"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">New Chat</span>
         </button>
-
-        <Link
-          to="/"
-          className="p-1.5 rounded-lg text-text-secondary hover:text-text-primary hover:bg-background-secondary transition-colors"
-          title="Back to Landing Page"
-        >
-          <Home className="w-4 h-4" />
-        </Link>
       </div>
     </header>
   );

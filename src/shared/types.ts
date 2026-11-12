@@ -3,6 +3,7 @@
 export interface Conversation {
   id: string;
   title: string;
+  isPinned: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -86,6 +87,7 @@ export interface ChatResponse {
 export interface ConversationListItem {
   id: string;
   title: string;
+  isPinned: boolean;
   createdAt: string;
   updatedAt: string;
   messageCount: number;

@@ -13,6 +13,7 @@ import type {
 interface DbConversation {
   id: string;
   title: string;
+  is_pinned?: number;
   created_at: string;
   updated_at: string;
 }
@@ -63,48 +64,83 @@ interface DbSource {
 export class Repository {
   // ─── Conversations ────────────────────────────────────────
 
-  createConversation(id?: string, title?: string): Conversation {
+  createConversation(id?: string, title?: string, isPinned = false): Conversation {
     const db = getDb();
     const convId = id || nanoid();
     const now = new Date().toISOString();
+    const cleanTitle = title ? title.replace(/^["']|["']$/g, '').trim() : 'New Conversation';
     db.prepare(
-      'INSERT INTO conversations (id, title, created_at, updated_at) VALUES (?, ?, ?, ?)'
-    ).run(convId, title || 'New Conversation', now, now);
-    return { id: convId, title: title || 'New Conversation', createdAt: now, updatedAt: now };
+      'INSERT INTO conversations (id, title, is_pinned, created_at, updated_at) VALUES (?, ?, ?, ?, ?)'
+    ).run(convId, cleanTitle, isPinned ? 1 : 0, now, now);
+    return { id: convId, title: cleanTitle, isPinned, createdAt: now, updatedAt: now };
   }
 
   getConversation(id: string): Conversation | null {
     const db = getDb();
     const row = db.prepare('SELECT * FROM conversations WHERE id = ?').get(id) as DbConversation | undefined;
     if (!row) return null;
-    return { id: row.id, title: row.title, createdAt: row.created_at, updatedAt: row.updated_at };
+    let title = row.title;
+    if (title.startsWith('"') && title.endsWith('"') && title.length > 2) {
+      title = title.slice(1, -1);
+    }
+    return {
+      id: row.id,
+      title,
+      isPinned: Boolean(row.is_pinned),
+      createdAt: row.created_at,
+      updatedAt: row.updated_at,
+    };
   }
 
-  listConversations(limit = 50, offset = 0): ConversationListItem[] {
+  listConversations(limit = 100, offset = 0): ConversationListItem[] {
     const db = getDb();
     const rows = db.prepare(`
       SELECT c.*, 
         (SELECT COUNT(*) FROM messages WHERE conversation_id = c.id) as message_count,
-        (SELECT content FROM messages WHERE conversation_id = c.id AND role = 'user' ORDER BY created_at ASC LIMIT 1) as preview
+        (SELECT content FROM messages WHERE conversation_id = c.id AND role = 'user' ORDER BY created_at ASC, rowid ASC LIMIT 1) as preview
       FROM conversations c
-      ORDER BY c.updated_at DESC
+      WHERE (SELECT COUNT(*) FROM messages WHERE conversation_id = c.id) > 0 OR c.is_pinned = 1 OR c.title != 'New Conversation'
+      ORDER BY c.is_pinned DESC, c.updated_at DESC
       LIMIT ? OFFSET ?
     `).all(limit, offset) as (DbConversation & { message_count: number; preview: string | null })[];
 
-    return rows.map(r => ({
-      id: r.id,
-      title: r.title,
-      createdAt: r.created_at,
-      updatedAt: r.updated_at,
-      messageCount: r.message_count,
-      preview: r.preview ? r.preview.slice(0, 120) : undefined,
-    }));
+    return rows.map((r) => {
+      let title = r.title;
+      if (title.startsWith('"') && title.endsWith('"') && title.length > 2) {
+        title = title.slice(1, -1);
+      }
+      // Never display generic "New Conversation" placeholder if a preview message exists
+      if ((title === 'New Conversation' || !title.trim()) && r.preview) {
+        const text = r.preview.replace(/^["']|["']$/g, '').trim();
+        title = text.length <= 50 ? text : text.slice(0, 47) + '…';
+      }
+      return {
+        id: r.id,
+        title,
+        isPinned: Boolean(r.is_pinned),
+        createdAt: r.created_at,
+        updatedAt: r.updated_at,
+        messageCount: r.message_count,
+        preview: r.preview ? r.preview.slice(0, 120) : undefined,
+      };
+    });
   }
 
-  updateConversationTitle(id: string, title: string): void {
+  updateConversationTitle(id: string, title: string): boolean {
     const db = getDb();
-    db.prepare('UPDATE conversations SET title = ?, updated_at = ? WHERE id = ?')
-      .run(title, new Date().toISOString(), id);
+    const cleanTitle = title.replace(/^["']|["']$/g, '').trim();
+    const result = db
+      .prepare('UPDATE conversations SET title = ?, updated_at = ? WHERE id = ?')
+      .run(cleanTitle, new Date().toISOString(), id);
+    return result.changes > 0;
+  }
+
+  updateConversationPin(id: string, isPinned: boolean): boolean {
+    const db = getDb();
+    const result = db
+      .prepare('UPDATE conversations SET is_pinned = ?, updated_at = ? WHERE id = ?')
+      .run(isPinned ? 1 : 0, new Date().toISOString(), id);
+    return result.changes > 0;
   }
 
   updateConversationTimestamp(id: string): void {
@@ -562,7 +598,7 @@ export class Repository {
     `).all(`%${entityName}%`, `%${entityName}%`) as DbConversation[];
 
     return rows.map(r => ({
-      id: r.id, title: r.title, createdAt: r.created_at, updatedAt: r.updated_at,
+      id: r.id, title: r.title, isPinned: Boolean(r.is_pinned), createdAt: r.created_at, updatedAt: r.updated_at,
     }));
   }
 
@@ -573,7 +609,7 @@ export class Repository {
       'SELECT * FROM conversations WHERE updated_at >= ? ORDER BY updated_at DESC LIMIT 50'
     ).all(cutoff) as DbConversation[];
     return rows.map(r => ({
-      id: r.id, title: r.title, createdAt: r.created_at, updatedAt: r.updated_at,
+      id: r.id, title: r.title, isPinned: Boolean(r.is_pinned), createdAt: r.created_at, updatedAt: r.updated_at,
     }));
   }
 }

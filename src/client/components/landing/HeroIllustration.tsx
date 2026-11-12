@@ -133,7 +133,7 @@ export const HeroIllustration: React.FC = () => {
             </div>
             <div className="text-[9px] text-[#F0644F] font-medium flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-[#F0644F] animate-pulse" />
-              Tavily Verified
+              Live Verified
             </div>
           </div>
         </div>
@@ -150,7 +150,7 @@ export const HeroIllustration: React.FC = () => {
               Smart Memory
             </div>
             <div className="text-[9px] text-[#E91E63] font-medium">
-              SQLite FTS5 Storage
+              Context Storage
             </div>
           </div>
         </div>

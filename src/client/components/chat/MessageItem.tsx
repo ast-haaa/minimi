@@ -62,7 +62,7 @@ export const MessageItem: React.FC<MessageItemProps> = ({
             {/* Memory indicator badge */}
             {memoryRefs.length > 0 && (
               <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-md bg-peach-soft text-coral font-medium border border-border">
-                <span>🧠 {memoryRefs.length} memory match{memoryRefs.length > 1 ? 'es' : ''} retrieved</span>
+                <span>🧠 {memoryRefs.length} past discussion{memoryRefs.length > 1 ? 's' : ''} referenced</span>
               </span>
             )}
           </div>

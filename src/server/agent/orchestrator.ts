@@ -230,7 +230,7 @@ export class AgentOrchestrator {
 
       // 11. Auto-update conversation title if first exchange
       const totalMessages = repository.getMessages(conversationId, 5);
-      if (totalMessages.length <= 2 && conversation.title.includes('New')) {
+      if (totalMessages.length <= 2 && (conversation.title.includes('New') || conversation.title.startsWith('"') || conversation.title.trim() === '')) {
         this.updateConversationTitle(conversationId, userMessage, completeContent).catch((e) =>
           logger.warn('Failed to update title', { error: String(e) })
         );
@@ -273,10 +273,11 @@ export class AgentOrchestrator {
         temperature: 0.3,
       });
 
-      const title = completion.choices[0]?.message?.content?.trim() || generateTitle(userText);
-      repository.updateConversationTitle(conversationId, title);
+      const rawTitle = completion.choices[0]?.message?.content?.trim() || generateTitle(userText);
+      const title = rawTitle.replace(/^["']|["']$/g, '').trim();
+      repository.updateConversationTitle(conversationId, title || generateTitle(userText));
     } catch {
-      repository.updateConversationTitle(conversationId, generateTitle(userText));
+      repository.updateConversationTitle(conversationId, generateTitle(userText).replace(/^["']|["']$/g, '').trim());
     }
   }
 

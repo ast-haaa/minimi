@@ -27,6 +27,8 @@ export const ChatPage: React.FC = () => {
     loadConversation,
     startNewConversation,
     deleteConversation,
+    togglePin,
+    renameConversation,
     stopStreaming,
     retryLastMessage,
   } = useChat(conversationId);
@@ -62,6 +64,8 @@ export const ChatPage: React.FC = () => {
           onSelect={handleSelectConversation}
           onNew={handleNewChat}
           onDelete={deleteConversation}
+          onTogglePin={togglePin}
+          onRename={renameConversation}
           isOpen={sidebarOpen}
           onToggle={() => setSidebarOpen(!sidebarOpen)}
         />
@@ -74,6 +78,8 @@ export const ChatPage: React.FC = () => {
         onSelect={handleSelectConversation}
         onNew={handleNewChat}
         onDelete={deleteConversation}
+        onTogglePin={togglePin}
+        onRename={renameConversation}
         isOpen={mobileDrawerOpen}
         onToggle={() => setMobileDrawerOpen(!mobileDrawerOpen)}
         isMobileDrawer={true}

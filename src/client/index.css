@@ -4,16 +4,16 @@
 
 @layer base {
   body {
-    background-color: #FAF9F6;
-    color: #292722;
+    background-color: #FFFFFF;
+    color: #292432;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-/* Custom scrollbar for ivory aesthetic */
+/* Custom scrollbar for modern neutral aesthetic */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -21,53 +21,55 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #E8E4DC;
-  border-radius: 4px;
+  background: #EAE7EF;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #A89B8B;
+  background: #C8BFD3;
 }
 
 /* Markdown prose styling overrides */
 .prose {
-  color: #292722;
+  color: #292432;
   max-width: none;
 }
 
 .prose p {
-  line-height: 1.65;
+  line-height: 1.68;
   margin-bottom: 0.85em;
+  color: #292432;
 }
 
 .prose a {
-  color: #B86F52;
+  color: #9675B8;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
   transition: color 0.15s ease;
 }
 
 .prose a:hover {
-  color: #A45F46;
+  color: #8060A5;
 }
 
 .prose strong {
-  color: #292722;
+  color: #292432;
   font-weight: 600;
 }
 
 .prose code {
-  color: #292722;
-  background-color: #F3F0EB;
+  color: #292432;
+  background-color: #F7F6FA;
   padding: 0.15em 0.35em;
   border-radius: 4px;
   font-size: 0.88em;
   font-family: 'JetBrains Mono', monospace;
+  border: 1px solid #EAE7EF;
 }
 
 .prose pre {
-  background-color: #292722;
-  color: #FAF9F6;
+  background-color: #292432;
+  color: #F7F6FA;
   border-radius: 8px;
   padding: 1rem;
   overflow-x: auto;
@@ -76,28 +78,33 @@
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.9em;
+  font-size: 0.875rem;
   margin: 1.25em 0;
-  border: 1px solid #E8E4DC;
-  border-radius: 6px;
+  border: 1px solid #EAE7EF;
+  border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(41, 36, 50, 0.03);
 }
 
 .prose th {
-  background-color: #F3F0EB;
-  color: #292722;
+  background-color: #F7F6FA;
+  color: #292432;
   font-weight: 600;
   text-align: left;
-  padding: 0.65rem 0.85rem;
-  border-bottom: 1px solid #E8E4DC;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #EAE7EF;
 }
 
 .prose td {
-  padding: 0.65rem 0.85rem;
-  border-bottom: 1px solid #E8E4DC;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #EAE7EF;
+  color: #292432;
 }
 
 .prose tr:last-child td {
   border-bottom: none;
 }
 
+.prose tr:hover td {
+  background-color: #FAFAFC;
+}

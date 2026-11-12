@@ -49,6 +49,8 @@ describe('AI Provider Configuration & Zod Validation', () => {
     process.env.AI_PROVIDER = 'openai';
     process.env.OPENAI_API_KEY = 'sk-mock-openai-key';
     delete process.env.GROQ_API_KEY;
+    delete process.env.AI_MODEL;
+    delete process.env.OPENAI_MODEL;
     process.env.TAVILY_API_KEY = 'tvly_mock_key';
 
     const check = validateConfig();
@@ -89,3 +91,4 @@ describe('AI Provider Configuration & Zod Validation', () => {
     expect(() => getConfig()).toThrow(/TAVILY_API_KEY/);
   });
 });
+

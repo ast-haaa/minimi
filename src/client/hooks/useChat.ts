@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import type { ConversationListItem, Message, Source } from '../../shared/types.js';
 import * as api from '../lib/api.js';
 
-export function useChat() {
+export function useChat(initialId?: string) {
   const [conversations, setConversations] = useState<ConversationListItem[]>([]);
-  const [currentConversationId, setCurrentConversationId] = useState<string | null>(null);
+  const [currentConversationId, setCurrentConversationId] = useState<string | null>(initialId || null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isStreaming, setIsStreaming] = useState<boolean>(false);
@@ -43,6 +43,13 @@ export function useChat() {
       setIsLoading(false);
     }
   }, []);
+
+  // Synchronize initialId if changed externally (e.g. route change)
+  useEffect(() => {
+    if (initialId && initialId !== currentConversationId) {
+      loadConversation(initialId);
+    }
+  }, [initialId, currentConversationId, loadConversation]);
 
   // Start new conversation
   const startNewConversation = useCallback(() => {
@@ -109,6 +116,7 @@ export function useChat() {
         onStart: (convId) => {
           if (!currentConversationId) {
             setCurrentConversationId(convId);
+            window.history.replaceState(null, '', `/app/${convId}`);
           }
         },
         onToken: (token) => {
@@ -146,6 +154,7 @@ export function useChat() {
         await api.deleteConversation(id);
         if (currentConversationId === id) {
           startNewConversation();
+          window.history.replaceState(null, '', '/app');
         }
         await loadConversations();
       } catch (e: unknown) {
@@ -181,4 +190,3 @@ export function useChat() {
     retryLastMessage,
   };
 }
-

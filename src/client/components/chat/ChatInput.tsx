@@ -17,7 +17,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   const [input, setInput] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Auto-resize textarea
+  // Auto-resize textarea smoothly
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
@@ -51,27 +51,27 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-4 pb-5 pt-2">
+    <div className="w-full max-w-3xl mx-auto px-4 pb-4 pt-2">
       <form
         onSubmit={handleSubmit}
-        className="relative flex items-end gap-2 p-2 rounded-2xl border border-border bg-surface shadow-sm focus-within:border-accent transition-all duration-150"
+        className="relative flex items-end gap-2 p-2 rounded-2xl border border-border bg-white shadow-card focus-within:border-accent focus-within:ring-2 focus-within:ring-accent/15 transition-all duration-150"
       >
         <textarea
           ref={textareaRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask a question or track past research changes..."
+          placeholder="Ask a question, compare tools, or track pricing changes..."
           rows={1}
           disabled={disabled}
-          className="w-full resize-none bg-transparent px-3 py-2 text-sm text-text-primary placeholder:text-taupe focus:outline-none max-h-44 leading-relaxed"
+          className="w-full resize-none bg-transparent px-3 py-2 text-xs sm:text-sm text-text-primary placeholder:text-text-secondary/70 focus:outline-none max-h-44 leading-relaxed"
         />
 
         {isStreaming ? (
           <button
             type="button"
             onClick={onStop}
-            className="flex-shrink-0 w-8 h-8 rounded-xl bg-accent hover:bg-accent-hover text-surface flex items-center justify-center transition-colors shadow-sm"
+            className="flex-shrink-0 w-8 h-8 rounded-xl bg-accent hover:bg-accent-hover text-white flex items-center justify-center transition-colors shadow-subtle"
             title="Stop generation"
           >
             <Square className="w-3.5 h-3.5 fill-current" />
@@ -80,10 +80,10 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           <button
             type="submit"
             disabled={!input.trim() || disabled}
-            className={`flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center transition-colors shadow-sm ${
+            className={`flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-150 shadow-subtle ${
               input.trim() && !disabled
-                ? 'bg-accent hover:bg-accent-hover text-surface'
-                : 'bg-ivory-dark text-taupe cursor-not-allowed'
+                ? 'bg-accent hover:bg-accent-hover text-white active:scale-95'
+                : 'bg-background-secondary text-text-secondary/40 cursor-not-allowed'
             }`}
             title="Send message (Enter)"
           >
@@ -91,11 +91,11 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           </button>
         )}
       </form>
-      <div className="flex justify-between items-center px-2 pt-2 text-[11px] text-taupe">
-        <span>Enter to send · Shift + Enter for new line</span>
-        <span>Persisted with SQLite memory</span>
+
+      <div className="flex justify-between items-center px-2 pt-2 text-[10px] text-text-secondary/80">
+        <span>Press Enter to send · Shift + Enter for new line</span>
+        <span className="font-mono">SQLite FTS5 + Live Search</span>
       </div>
     </div>
   );
 };
-

@@ -1,53 +1,17 @@
-import React, { useState } from 'react';
-import { Sidebar } from './components/Sidebar.js';
-import { ChatArea } from './components/ChatArea.js';
-import { useChat } from './hooks/useChat.js';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { LandingPage } from './pages/LandingPage.js';
+import { ChatPage } from './pages/ChatPage.js';
 
 export const App: React.FC = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-
-  const {
-    conversations,
-    currentConversationId,
-    messages,
-    isStreaming,
-    streamingContent,
-    streamingSources,
-    error,
-    sendMessage,
-    loadConversation,
-    startNewConversation,
-    deleteConversation,
-    stopStreaming,
-    retryLastMessage,
-  } = useChat();
-
-  const currentConv = conversations.find((c) => c.id === currentConversationId);
-
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-ivory font-sans text-text-primary">
-      <Sidebar
-        conversations={conversations}
-        currentId={currentConversationId}
-        onSelect={loadConversation}
-        onNew={startNewConversation}
-        onDelete={deleteConversation}
-        isOpen={sidebarOpen}
-        onToggle={() => setSidebarOpen(!sidebarOpen)}
-      />
-
-      <ChatArea
-        messages={messages}
-        conversationTitle={currentConv?.title}
-        isStreaming={isStreaming}
-        streamingContent={streamingContent}
-        streamingSources={streamingSources}
-        error={error}
-        onSendMessage={sendMessage}
-        onStop={stopStreaming}
-        onRetry={retryLastMessage}
-      />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/app" element={<ChatPage />} />
+        <Route path="/app/:conversationId" element={<ChatPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
-

@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #FAF9F6;
+    color: #292722;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* Custom scrollbar for ivory aesthetic */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E8E4DC;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A89B8B;
+}
+
+/* Markdown prose styling overrides */
+.prose {
+  color: #292722;
+  max-width: none;
+}
+
+.prose p {
+  line-height: 1.65;
+  margin-bottom: 0.85em;
+}
+
+.prose a {
+  color: #B86F52;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease;
+}
+
+.prose a:hover {
+  color: #A45F46;
+}
+
+.prose strong {
+  color: #292722;
+  font-weight: 600;
+}
+
+.prose code {
+  color: #292722;
+  background-color: #F3F0EB;
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  font-size: 0.88em;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.prose pre {
+  background-color: #292722;
+  color: #FAF9F6;
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+  margin: 1.25em 0;
+  border: 1px solid #E8E4DC;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.prose th {
+  background-color: #F3F0EB;
+  color: #292722;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid #E8E4DC;
+}
+
+.prose td {
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid #E8E4DC;
+}
+
+.prose tr:last-child td {
+  border-bottom: none;
+}

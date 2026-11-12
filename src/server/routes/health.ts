@@ -15,8 +15,9 @@ healthRouter.get('/', (_req: Request, res: Response) => {
     dbOk = false;
   }
 
-  const { valid, missing } = validateConfig();
-  const openaiOk = !missing.includes('OPENAI_API_KEY');
+  const { valid, missing, provider } = validateConfig();
+  const openaiOk = !missing.includes('OPENAI_API_KEY') && Boolean(process.env.OPENAI_API_KEY?.trim());
+  const groqOk = !missing.includes('GROQ_API_KEY') && Boolean(process.env.GROQ_API_KEY?.trim());
   const tavilyOk = !missing.includes('TAVILY_API_KEY');
 
   const status = dbOk && valid ? 'ok' : dbOk ? 'degraded' : 'error';
@@ -27,6 +28,8 @@ healthRouter.get('/', (_req: Request, res: Response) => {
     checks: {
       database: dbOk,
       openai: openaiOk,
+      groq: groqOk,
+      aiProvider: provider,
       tavily: tavilyOk,
     },
     timestamp: new Date().toISOString(),

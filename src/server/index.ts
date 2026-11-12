@@ -48,14 +48,14 @@ try {
 }
 
 // Safely verify configuration without logging values
-const { valid, missing, present } = validateConfig();
+const { valid, missing, present, provider } = validateConfig();
 if (!valid) {
   logger.warn(
-    `Missing required environment variables: ${missing.join(', ')}. Please configure .env in project root.`
+    `Missing required environment variables for provider '${provider}': ${missing.join(', ')}. Please configure .env in project root.`
   );
 } else {
   logger.info(
-    `Environment configuration validated successfully (configured: ${present.join(', ')})`
+    `Environment configuration validated successfully for provider '${provider}' (configured: ${present.join(', ')})`
   );
 }
 

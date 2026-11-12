@@ -27,9 +27,10 @@ function getOrchestrator(): AgentOrchestrator {
   }
 
   orchestrator = new AgentOrchestrator({
-    openaiApiKey: config.OPENAI_API_KEY,
+    apiKey: config.AI_API_KEY,
+    baseURL: config.AI_BASE_URL,
     tavilyApiKey: config.TAVILY_API_KEY,
-    model: config.OPENAI_MODEL,
+    model: config.AI_MODEL,
     timezone: config.APP_TIMEZONE,
   });
 

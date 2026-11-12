@@ -13,7 +13,9 @@ import { sanitizeHtml, formatSourcesSection, formatComparisonMarkdown } from './
 import type { Message, Source, ExtractedEntity, ExtractedFact, WebSearchResult } from '../../shared/types.js';
 
 export interface OrchestratorOptions {
-  openaiApiKey: string;
+  apiKey?: string;
+  openaiApiKey?: string;
+  baseURL?: string;
   tavilyApiKey: string;
   model?: string;
   timezone?: string;
@@ -32,9 +34,13 @@ export class AgentOrchestrator {
   private timezone: string;
 
   constructor(options: OrchestratorOptions) {
-    this.openai = new OpenAI({ apiKey: options.openaiApiKey });
+    const key = options.apiKey || options.openaiApiKey || '';
+    this.openai = new OpenAI({
+      apiKey: key,
+      baseURL: options.baseURL,
+    });
     this.toolHandler = new ToolHandler(options.tavilyApiKey);
-    this.model = options.model || 'gpt-4o';
+    this.model = options.model || 'openai/gpt-oss-120b';
     this.timezone = options.timezone || 'UTC';
   }
 

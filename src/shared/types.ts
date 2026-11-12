@@ -98,6 +98,8 @@ export interface HealthResponse {
   checks: {
     database: boolean;
     openai: boolean;
+    groq?: boolean;
+    aiProvider?: string;
     tavily: boolean;
   };
   timestamp: string;

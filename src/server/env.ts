@@ -15,3 +15,4 @@ if (fs.existsSync(ENV_FILE_PATH)) {
 } else {
   dotenv.config();
 }
+

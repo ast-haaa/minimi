@@ -6,9 +6,12 @@ const TEST_DB_PATH = './data/test_minimi.db';
 
 beforeAll(() => {
   process.env.DATABASE_PATH = TEST_DB_PATH;
+  process.env.AI_PROVIDER = 'groq';
+  process.env.GROQ_API_KEY = 'mock-groq-key';
   process.env.OPENAI_API_KEY = 'mock-openai-key';
   process.env.TAVILY_API_KEY = 'mock-tavily-key';
-  process.env.OPENAI_MODEL = 'gpt-4o';
+  process.env.AI_MODEL = 'openai/gpt-oss-120b';
+  process.env.OPENAI_MODEL = 'openai/gpt-oss-120b';
   process.env.PORT = '3099';
   process.env.APP_TIMEZONE = 'UTC';
 

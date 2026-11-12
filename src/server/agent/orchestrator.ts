@@ -230,9 +230,7 @@ export class AgentOrchestrator {
 
       // 11. Auto-update conversation title if first exchange
       const totalMessages = repository.getMessages(conversationId, 5);
-      if (totalMessages.length <= 2 && (conversation.title.includes('New') || conversation.title.includes('Research Session'))) {
-        const immediateTitle = generateTitle(userMessage);
-        repository.updateConversationTitle(conversationId, immediateTitle);
+      if (totalMessages.length <= 2 && conversation.title.includes('New')) {
         this.updateConversationTitle(conversationId, userMessage, completeContent).catch((e) =>
           logger.warn('Failed to update title', { error: String(e) })
         );

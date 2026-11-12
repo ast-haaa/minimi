@@ -3,7 +3,6 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import path from 'path';
-import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { config, validateConfig } from './utils/config.js';
 import { getDb } from './database/connection.js';
@@ -64,16 +63,6 @@ if (!valid) {
 app.use('/api/health', healthRouter);
 app.use('/api/conversations', conversationsRouter);
 app.use('/api/chat', chatRouter);
-
-// Serve Client in production
-const clientDistPath = path.resolve(__dirname, '../../dist/client');
-if (fs.existsSync(clientDistPath)) {
-  app.use(express.static(clientDistPath));
-  app.get('*', (req, res, next) => {
-    if (req.path.startsWith('/api')) return next();
-    res.sendFile(path.join(clientDistPath, 'index.html'));
-  });
-}
 
 // Global Error Handler
 app.use((err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {

@@ -10,7 +10,7 @@
   }
 }
 
-/* Custom scrollbar for modern neutral aesthetic */
+/* Custom scrollbar for clean lavender/purple neutral aesthetic */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -21,12 +21,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #EAE7EF;
+  background: #EAE5F0;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #C8BFD3;
+  background: #D4CADF;
 }
 
 /* Markdown prose styling overrides */
@@ -42,14 +42,14 @@
 }
 
 .prose a {
-  color: #9675B8;
+  color: #8051C7;
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: color 0.15s ease;
 }
 
 .prose a:hover {
-  color: #8060A5;
+  color: #693BAF;
 }
 
 .prose strong {
@@ -59,17 +59,17 @@
 
 .prose code {
   color: #292432;
-  background-color: #F7F6FA;
+  background-color: #F8F6FB;
   padding: 0.15em 0.35em;
   border-radius: 4px;
   font-size: 0.88em;
   font-family: 'JetBrains Mono', monospace;
-  border: 1px solid #EAE7EF;
+  border: 1px solid #EAE5F0;
 }
 
 .prose pre {
   background-color: #292432;
-  color: #F7F6FA;
+  color: #FFFFFF;
   border-radius: 8px;
   padding: 1rem;
   overflow-x: auto;
@@ -78,33 +78,27 @@
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.875rem;
+  font-size: 0.9em;
   margin: 1.25em 0;
-  border: 1px solid #EAE7EF;
-  border-radius: 8px;
+  border: 1px solid #EAE5F0;
+  border-radius: 6px;
   overflow: hidden;
-  box-shadow: 0 1px 3px 0 rgba(41, 36, 50, 0.03);
 }
 
 .prose th {
-  background-color: #F7F6FA;
+  background-color: #F8F6FB;
   color: #292432;
   font-weight: 600;
   text-align: left;
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #EAE7EF;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid #EAE5F0;
 }
 
 .prose td {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #EAE7EF;
-  color: #292432;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid #EAE5F0;
 }
 
 .prose tr:last-child td {
   border-bottom: none;
-}
-
-.prose tr:hover td {
-  background-color: #FAFAFC;
 }
